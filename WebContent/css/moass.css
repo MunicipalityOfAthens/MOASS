@@ -1,0 +1,8 @@
+#cover {
+background: url("../assets/loader.gif") no-repeat scroll center center #d4d4d4;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: 1000;
+    display:none;
+}

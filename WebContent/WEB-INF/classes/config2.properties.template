@@ -1,0 +1,9 @@
+#rename to config.properties after change the following values 
+ldap = ldap://ldapserver/dc=organization,dc=gr
+mailAttr = mail
+membershipID = memberUid
+alfServer = alfrescoServer
+alfUser = <USERNAME>
+alfPassword = <PASSWORD>
+bonitaServer = bonitaServer
+font =  yourfont.ttf
