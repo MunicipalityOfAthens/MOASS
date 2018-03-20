@@ -94,7 +94,8 @@ try {
 	      //TODO rethinks security
 
 	      //Elegxos an o logged user paei na ypograpsei eggrafo se site pou anikei
-	       String UserOU = galgallin.getOUbyUID(loggedUser).replaceAll("[ /s\\/,.!@#$%^&*()-+_=]", "");
+	       //String UserOU = galgallin.getOUbyUID(loggedUser).replaceAll("[ /s\\/,.!@#$%^&*()-+_=]", "");
+		String UserOU = MOASSUtils.setOuInAppropriateFormat(loggedUser);
 		       
 	       String site = radweriel.siteByDocUUID("workspace://SpacesStore/"+uuid).replaceAll("[ /s\\/,.!@#$%^&*()-+_=]", "");        
 	       if (!Objects.equals(site,UserOU)) throw new RuntimeException("Doc put is not allowed");

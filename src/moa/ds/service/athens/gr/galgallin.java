@@ -130,6 +130,27 @@ public class galgallin {
 	}
 	
 	
+	     public static String getDepNumbyUID (String UID) throws Exception {
+		DirContext ctx = ldapContext();
+		String filter = "(uid=" + UID + ")";
+		SearchControls ctrl = new SearchControls();
+		ctrl.setSearchScope(SearchControls.SUBTREE_SCOPE);
+		NamingEnumeration<?> answer = ctx.search("", filter, ctrl);
+
+		Attributes atrs = null;
+		if (answer.hasMore()) {
+			SearchResult result = (SearchResult) answer.next();
+			atrs = result.getAttributes();
+
+		}
+		answer.close();
+		return (String) atrs.get("departmentNumber").get();
+	}
+	
+	
+	
+	
+	
 	public static boolean checkMembershipInGroupByUID (String UID,String groupCN,String Base) throws Exception {
 		boolean isMember=false;
 		DirContext ctx = ldapContext();
