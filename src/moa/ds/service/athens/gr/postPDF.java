@@ -91,8 +91,9 @@ public class postPDF extends HttpServlet {
 		  // MIPOS na koitazo sta diekomata tou fakelou an    
 		     
 		  // Elegxos an o logged user einai yparktos
-		     String UserOU = galgallin.getOUbyUID(loggedUser).replaceAll("[ /s\\/,.!@#$%^&*()-+_=]", ""); 
-		     if (UserOU=="") throw new RuntimeException("Not found");
+		     //String UserOU = galgallin.getOUbyUID(loggedUser).replaceAll("[ /s\\/,.!@#$%^&*()-+_=]", ""); 
+		   String UserOU = MOASSUtils.setOuInAppropriateFormat(loggedUser);  
+		   if (UserOU=="") throw new RuntimeException("Not found");
 		      
 		  // elenxos an o xristis einai allowed sto sygkekrimeno taskUUID
 		     if (!thales.cantitateIsValid(taskUUID,loggedUser)) throw new RuntimeException("Not allowed");

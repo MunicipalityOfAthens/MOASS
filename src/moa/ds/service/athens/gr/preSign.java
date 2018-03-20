@@ -198,14 +198,19 @@ public class preSign extends HttpServlet {
         
                        
         //Elegxos an o logged user paei na ypograpsei eggrafo se site pou anikei
-        String UserOU = galgallin.getOUbyUID(userUID).replaceAll("[ /s\\/,.!@#$%^&*()-+_=]", "");
+        //String UserOU = galgallin.getOUbyUID(userUID).replaceAll("[ /s\\/,.!@#$%^&*()-+_=]", "");
+	 String UserOU = MOASSUtils.setOuInAppropriateFormat(userUID);
         
         //TODO Dirty workarrounds FIX!!!!
         boolean isProtocolMember = galgallin.checkMembershipInGroupByUID(loggedUser, "protocol", "ou=groups,ou=DIAKINISI_EGGRAFON,ou=APPLICATIONS");
         
-        if (!isProtocolMember && !UserOU.equals("ΓΕΝΙΚΟΣΓΡΑΜΜΑΤΕΑΣ") && !UserOU.equals("ΔΗΜΑΡΧΟΣ") && !UserOU.equals("Αντιδήμαρχος") && !UserOU.equals("ΕντεταλμένοςΣύμβουλος")){
-        String site = radweriel.siteByDocUUID("workspace://SpacesStore/"+uuid).replaceAll("[ /s\\/,.!@#$%^&*()-+_=]", "");        
-        if (!Objects.equals(site,UserOU)) throw new RuntimeException("1 Δέν επιτρέπεται η υπογραφή, το λάθος καταγράφηκε και θα χρησιμοποιηθεί προς διώξή σας αν διαπιστωθεί εσκεμμένη προσπάθεια παραβίασης");
+        if (!isProtocolMember && !UserOU.equals("ΓΕΝΙΚΟΣ ΓΡΑΜΜΑΤΕΑΣ".replaceAll("[ /s\\/,.!@#$%^&*()-+_=]", "")) && 
+	!UserOU.equals("ΔΗΜΑΡΧΟΣ".replaceAll("[ /s\\/,.!@#$%^&*()-+_=]", "")) && 
+	!UserOU.equals("Αντιδήμαρχος".replaceAll("[ /s\\/,.!@#$%^&*()-+_=]", "")) && 
+	!UserOU.equals("Εντεταλμένος Σύμβουλος".replaceAll("[ /s\\/,.!@#$%^&*()-+_=]", "")) &&
+	!UserOU.equals("ΓΕΝΙΚΟΣ ΔΙΕΥΘΥΝΤΗΣ".replaceAll("[ /s\\/,.!@#$%^&*()-+_=]", ""))){
+        	String site = radweriel.siteByDocUUID("workspace://SpacesStore/"+uuid).replaceAll("[ /s\\/,.!@#$%^&*()-+_=]", "");        
+        	if (!Objects.equals(site,UserOU)) throw new RuntimeException("1 Δέν επιτρέπεται η υπογραφή, το λάθος καταγράφηκε και θα χρησιμοποιηθεί προς διώξή σας αν διαπιστωθεί εσκεμμένη προσπάθεια παραβίασης");
         }
 
         //elenxos an o xristis einai allowed sto sygkekrimeno taskUUID
