@@ -123,11 +123,17 @@ public class galgallin {
 		if (answer.hasMore()) {
 			SearchResult result = (SearchResult) answer.next();
 			atrs = result.getAttributes();
-
+			answer.close();
+			try {
+			return (String) atrs.get("ou").get();
+			} catch (Exception e) {
+				return "";
+			 }
 		}
-		answer.close();
-		return (String) atrs.get("ou").get();
+
+		return "";
 	}
+
 	
 	
 	     public static String getDepNumbyUID (String UID) throws Exception {
@@ -136,15 +142,18 @@ public class galgallin {
 		SearchControls ctrl = new SearchControls();
 		ctrl.setSearchScope(SearchControls.SUBTREE_SCOPE);
 		NamingEnumeration<?> answer = ctx.search("", filter, ctrl);
-
 		Attributes atrs = null;
 		if (answer.hasMore()) {
 			SearchResult result = (SearchResult) answer.next();
 			atrs = result.getAttributes();
-
-		}
-		answer.close();
-		return (String) atrs.get("departmentNumber").get();
+			answer.close();
+			try {
+			   return (String) atrs.get("departmentNumber").get();
+			} catch (Exception e) {
+				return "";
+			  }
+			}
+		return "";
 	}
 	
 	
@@ -161,11 +170,16 @@ public class galgallin {
 		if (answer.hasMore()) {
 			SearchResult result = (SearchResult) answer.next();
 			atrs = result.getAttributes();
-
+			answer.close();
+			try {
+			return (String) atrs.get("employeeType").get();
+			} catch (Exception e) {
+				return "";
+			  }
 		}
-		answer.close();
-		return (String) atrs.get("employeeType").get();
+       return "";        
 	}
+
 	
 	
 	
