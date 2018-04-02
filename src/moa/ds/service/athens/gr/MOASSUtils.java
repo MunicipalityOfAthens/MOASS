@@ -192,29 +192,43 @@ public class MOASSUtils {
 	  
 	String UserOU = galgallin.getOUbyUID(userUID).replaceAll("[ /s\\/,.!@#$%^&*()-+_=]", "");
 	String UserDepNum = galgallin.getDepNumbyUID(userUID).replaceAll("[ /s\\/,.!@#$%^&*()-+_=]", "");
+	String UserEmpT = galgallin.getEmpTbyUID(userUID).replaceAll("[ /s\\/,.!@#$%^&*()-+_=]", "");
 	String UserSite = "";
-
+	  
+	if(UserEmpT != null && !UserEmpT.trim().isEmpty() && UserEmpT.trim().contentEquals("null")==false) {
+		if(UserEmpT.trim().contentEquals("ΠΡΟΕΔΡΟΣ ΔΣ".replaceAll("[ /s\\/,.!@#$%^&*()-+_=]", ""))==true)
+			UserSite = "Ημερήσιες Δημοτικού Συμβουλίου".replaceAll("[ /s\\/,.!@#$%^&*()-+_=]", "");
+		else if(UserEmpT.trim().contentEquals("ΠΡΟΕΔΡΟΣ ΟΕ".replaceAll("[ /s\\/,.!@#$%^&*()-+_=]", ""))==true)
+			UserSite = "ΟΙΚΟΝΟΜΙΚΗ ΕΠΙΤΡΟΠΗ".replaceAll("[ /s\\/,.!@#$%^&*()-+_=]", "");
+		else if(UserEmpT.trim().contentEquals("ΠΡΟΕΔΡΟΣ ΕΠΖ".replaceAll("[ /s\\/,.!@#$%^&*()-+_=]", ""))==true)
+			UserSite = "ΕΠΙΤΡΟΠΗ ΠΟΙΟΤΗΤΑΣ ΖΩΗΣ".replaceAll("[ /s\\/,.!@#$%^&*()-+_=]", "");
+		}
+	
+	if(UserSite != null && !UserSite.trim().isEmpty() && UserSite.trim().contentEquals("null")==false) {
 	if(UserOU != null && !UserOU.trim().isEmpty() && UserOU.trim().contentEquals("null")==false) {
    		if(UserOU.trim().contentEquals("ΔΗΜΑΡΧΟΣ".replaceAll("[ /s\\/,.!@#$%^&*()-+_=]", ""))==true)
-        	UserSite = "ΑΥΤΟΤΕΛΕΣ ΤΜΗΜΑ ΔΙΟΙΚΗΤΙΚΗΣ ΥΠΟΣΤΗΡΙΞΗΣ ΔΗΜΑΡΧΟΥ".replaceAll("[ /s\\/,.!@#$%^&*()-+_=]", "");
-     	else if(UserOU.trim().contentEquals("ΓΕΝΙΚΟΣ ΓΡΑΜΜΑΤΕΑΣ".replaceAll("[ /s\\/,.!@#$%^&*()-+_=]", ""))==true)
-        	UserSite =  "ΑΥΤΟΤΕΛΕΣ ΤΜΗΜΑ ΔΙΟΙΚΗΤΙΚΗΣ ΥΠΟΣΤΗΡΙΞΗΣ ΓΕΝΙΚΟΥ ΓΡΑΜΜΑΤΕΑ".replaceAll("[ /s\\/,.!@#$%^&*()-+_=]", "");
-    	 else if(UserOU.trim().contentEquals("Αντιδήμαρχος".replaceAll("[ /s\\/,.!@#$%^&*()-+_=]", ""))==true) {
-        	String returned_ou = "Αντιδήμαρχος " + UserDepNum.trim();
-        	UserSite = returned_ou.trim().replaceAll("[ /s\\/,.!@#$%^&*()-+_=]", "");
-    	}
-    	else if(UserOU.trim().contentEquals("ΓΕΝΙΚΟΣ ΔΙΕΥΘΥΝΤΗΣ".replaceAll("[ /s\\/,.!@#$%^&*()-+_=]", ""))==true)
-        	UserSite = UserDepNum.trim();
-   	 else if(UserOU.trim().contentEquals("Εντεταλμένος Σύμβουλος".replaceAll("[ /s\\/,.!@#$%^&*()-+_=]", ""))==true) {
-        	String returned_ou = "Εντεταλμένος Σύμβουλος - " + UserDepNum.trim();
-        	UserSite = returned_ou.replaceAll("[ /s\\/,.!@#$%^&*()-+_=]", "");
-    	}
-    	else UserSite = UserOU.trim();
+        		UserSite = "ΑΥΤΟΤΕΛΕΣ ΤΜΗΜΑ ΔΙΟΙΚΗΤΙΚΗΣ ΥΠΟΣΤΗΡΙΞΗΣ ΔΗΜΑΡΧΟΥ".replaceAll("[ /s\\/,.!@#$%^&*()-+_=]", "");
+     		else if(UserOU.trim().contentEquals("ΓΕΝΙΚΟΣ ΓΡΑΜΜΑΤΕΑΣ".replaceAll("[ /s\\/,.!@#$%^&*()-+_=]", ""))==true)
+        		UserSite =  "ΑΥΤΟΤΕΛΕΣ ΤΜΗΜΑ ΔΙΟΙΚΗΤΙΚΗΣ ΥΠΟΣΤΗΡΙΞΗΣ ΓΕΝΙΚΟΥ ΓΡΑΜΜΑΤΕΑ".replaceAll("[ /s\\/,.!@#$%^&*()-+_=]", "");
+    		else if(UserOU.trim().contentEquals("Αντιδήμαρχος".replaceAll("[ /s\\/,.!@#$%^&*()-+_=]", ""))==true) {
+        		String returned_ou = "Αντιδήμαρχος " + UserDepNum.trim();
+        		UserSite = returned_ou.trim().replaceAll("[ /s\\/,.!@#$%^&*()-+_=]", "");
+    		}
+    		else if(UserOU.trim().contentEquals("ΓΕΝΙΚΟΣ ΔΙΕΥΘΥΝΤΗΣ".replaceAll("[ /s\\/,.!@#$%^&*()-+_=]", ""))==true)
+        		UserSite = UserDepNum.trim();
+   	 	else if(UserOU.trim().contentEquals("Εντεταλμένος Σύμβουλος".replaceAll("[ /s\\/,.!@#$%^&*()-+_=]", ""))==true) {
+        		String returned_ou = "Εντεταλμένος Σύμβουλος - " + UserDepNum.trim();
+        		UserSite = returned_ou.replaceAll("[ /s\\/,.!@#$%^&*()-+_=]", "");
+    		}
+    		else UserSite = UserOU.trim();
 	} else UserSite = UserDepNum.trim();
+	}
 	
 	return UserSite.trim();
       }
  
+	
+	
 	public static String json_signatures(InputStream PDF) throws IOException, GeneralSecurityException {
 
 		String json = "[";
