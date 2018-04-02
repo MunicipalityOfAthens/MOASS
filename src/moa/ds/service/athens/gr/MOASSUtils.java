@@ -204,7 +204,7 @@ public class MOASSUtils {
 			UserSite = "ΕΠΙΤΡΟΠΗ ΠΟΙΟΤΗΤΑΣ ΖΩΗΣ".replaceAll("[ /s\\/,.!@#$%^&*()-+_=]", "");
 		}
 	
-	if(UserSite != null && !UserSite.trim().isEmpty() && UserSite.trim().contentEquals("null")==false) {
+	if(UserSite == null || UserSite.trim().isEmpty() || UserSite.trim().contentEquals("null")!=false) {
 	if(UserOU != null && !UserOU.trim().isEmpty() && UserOU.trim().contentEquals("null")==false) {
    		if(UserOU.trim().contentEquals("ΔΗΜΑΡΧΟΣ".replaceAll("[ /s\\/,.!@#$%^&*()-+_=]", ""))==true)
         		UserSite = "ΑΥΤΟΤΕΛΕΣ ΤΜΗΜΑ ΔΙΟΙΚΗΤΙΚΗΣ ΥΠΟΣΤΗΡΙΞΗΣ ΔΗΜΑΡΧΟΥ".replaceAll("[ /s\\/,.!@#$%^&*()-+_=]", "");
