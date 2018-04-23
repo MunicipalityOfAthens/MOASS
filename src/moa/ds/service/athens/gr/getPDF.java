@@ -111,15 +111,12 @@ public class getPDF extends HttpServlet {
     	
       //Elegxos an o logged user paei na ypograpsei eggrafo se site pou anikei
        //String UserOU = galgallin.getOUbyUID(loggedUser).replaceAll("[ /s\\/,.!@#$%^&*()-+_=]", "");
-	String UserOU = MOASSUtils.setOuInAppropriateFormat(loggedUser);
- 
+       String UserOU = MOASSUtils.setOuInAppropriateFormat(loggedUser);
        String site = radweriel.siteByDocUUID("workspace://SpacesStore/"+uuid).replaceAll("[ /s\\/,.!@#$%^&*()-+_=]", "");        
 	   
        //TODO rethinks security
-      
+	/*      
        boolean isProtocolMember = galgallin.checkMembershipInGroupByUID(loggedUser, "protocol", "ou=groups,ou=DIAKINISI_EGGRAFON,ou=APPLICATIONS");
-       
-       
        if (!isProtocolMember && !UserOU.equals("ΓΕΝΙΚΟΣ ΓΡΑΜΜΑΤΕΑΣ".replaceAll("[ /s\\/,.!@#$%^&*()-+_=]", "")) && 
 	!UserOU.equals("ΔΗΜΑΡΧΟΣ".replaceAll("[ /s\\/,.!@#$%^&*()-+_=]", "")) && 
 	!UserOU.equals("Αντιδήμαρχος".replaceAll("[ /s\\/,.!@#$%^&*()-+_=]", "")) && 
@@ -127,7 +124,11 @@ public class getPDF extends HttpServlet {
 	!UserOU.equals("ΓΕΝΙΚΟΣ ΔΙΕΥΘΥΝΤΗΣ".replaceAll("[ /s\\/,.!@#$%^&*()-+_=]", ""))){
          if (!Objects.equals(site,UserOU)) throw new RuntimeException("Doc get is not allowed");
        }
-       
+       */
+       if(!MOASSUtils.transcendPersonRole(loggedUser)){
+         if (!Objects.equals(site,UserOU)) throw new RuntimeException("Doc get is not allowed");
+       }
+	       
        //elenxos an o xristis einai allowed sto sygkekrimeno taskUUID
        if (!thales.cantitateIsValid(taskUUID,loggedUser)) throw new RuntimeException("Not allowed");
        

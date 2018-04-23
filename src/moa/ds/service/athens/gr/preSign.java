@@ -199,9 +199,12 @@ public class preSign extends HttpServlet {
                        
         //Elegxos an o logged user paei na ypograpsei eggrafo se site pou anikei
         //String UserOU = galgallin.getOUbyUID(userUID).replaceAll("[ /s\\/,.!@#$%^&*()-+_=]", "");
-	 String UserOU = MOASSUtils.setOuInAppropriateFormat(userUID);
+	String UserOU = MOASSUtils.setOuInAppropriateFormat(userUID);
+	String site = radweriel.siteByDocUUID("workspace://SpacesStore/"+uuid).replaceAll("[ /s\\/,.!@#$%^&*()-+_=]", "");        
+
         
         //TODO Dirty workarrounds FIX!!!!
+	/*
         boolean isProtocolMember = galgallin.checkMembershipInGroupByUID(loggedUser, "protocol", "ou=groups,ou=DIAKINISI_EGGRAFON,ou=APPLICATIONS");
         
         if (!isProtocolMember && !UserOU.equals("ΓΕΝΙΚΟΣ ΓΡΑΜΜΑΤΕΑΣ".replaceAll("[ /s\\/,.!@#$%^&*()-+_=]", "")) && 
@@ -212,7 +215,10 @@ public class preSign extends HttpServlet {
         	String site = radweriel.siteByDocUUID("workspace://SpacesStore/"+uuid).replaceAll("[ /s\\/,.!@#$%^&*()-+_=]", "");        
         	if (!Objects.equals(site,UserOU)) throw new RuntimeException("1 Δέν επιτρέπεται η υπογραφή, το λάθος καταγράφηκε και θα χρησιμοποιηθεί προς διώξή σας αν διαπιστωθεί εσκεμμένη προσπάθεια παραβίασης");
         }
-
+	*/
+	if(!MOASSUtils.transcendPersonRole(userUID)){
+         if (!Objects.equals(site,UserOU)) throw new RuntimeException("1 Δέν επιτρέπεται η υπογραφή, το λάθος καταγράφηκε και θα χρησιμοποιηθεί προς διώξή σας αν διαπιστωθεί εσκεμμένη προσπάθεια παραβίασης");
+       }
         //elenxos an o xristis einai allowed sto sygkekrimeno taskUUID
         if (!thales.cantitateIsValid(taskUUID,loggedUser)) throw new RuntimeException("2 Δέν επιτρέπεται η υπογραφή, το λάθος καταγράφηκε και θα χρησιμοποιηθεί προς διώξή σας αν διαπιστωθεί εσκεμμένη προσπάθεια παραβίασης");
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////        
