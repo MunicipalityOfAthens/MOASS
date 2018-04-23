@@ -229,7 +229,7 @@ public class MOASSUtils {
  
 	
 	
-	public boolean transcendPersonRole (String userUID) throws Exception {
+	public static boolean transcendPersonRole (String userUID) throws Exception {
 	
 	boolean isGSecMember = galgallin.checkMembershipInGroupByUID(userUID.trim(), "general_secretary", "ou=groups,ou=DIAKINISI_EGGRAFON,ou=APPLICATIONS");	
 	boolean isMayorMember = galgallin.checkMembershipInGroupByUID(userUID.trim(), "mayor", "ou=groups,ou=DIAKINISI_EGGRAFON,ou=APPLICATIONS");	
@@ -268,3 +268,4 @@ public class MOASSUtils {
 		return "[]";
 	}
 }
+
