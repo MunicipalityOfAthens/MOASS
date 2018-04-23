@@ -205,7 +205,7 @@ public class MOASSUtils {
 		}
 	
 	if(UserSite == null || UserSite.trim().isEmpty() || UserSite.trim().contentEquals("null")!=false) {
-	if(UserOU != null && !UserOU.trim().isEmpty() && UserOU.trim().contentEquals("null")==false) {
+	if(UserOU != null && !UserOU.trim().isEmpty() && UserOU.trim().contentEquals("null")==false) { /*
    		if(UserOU.trim().contentEquals("ΔΗΜΑΡΧΟΣ".replaceAll("[ /s\\/,.!@#$%^&*()-+_=]", ""))==true)
         		UserSite = "ΑΥΤΟΤΕΛΕΣ ΤΜΗΜΑ ΔΙΟΙΚΗΤΙΚΗΣ ΥΠΟΣΤΗΡΙΞΗΣ ΔΗΜΑΡΧΟΥ".replaceAll("[ /s\\/,.!@#$%^&*()-+_=]", "");
      		else if(UserOU.trim().contentEquals("ΓΕΝΙΚΟΣ ΓΡΑΜΜΑΤΕΑΣ".replaceAll("[ /s\\/,.!@#$%^&*()-+_=]", ""))==true)
@@ -220,13 +220,35 @@ public class MOASSUtils {
         		String returned_ou = "Εντεταλμένος Σύμβουλος - " + UserDepNum.trim();
         		UserSite = returned_ou.replaceAll("[ /s\\/,.!@#$%^&*()-+_=]", "");
     		}
-    		else UserSite = UserOU.trim();
+    		else 
+		*/ 
+		UserSite = UserOU.trim();
 	} else UserSite = UserDepNum.trim();
 	}
 	
 	return UserSite.trim();
       }
  
+	
+	
+	public boolean transcendPersonRole (String userUID) throws Exception {
+	
+	boolean isGSecMember = galgallin.checkMembershipInGroupByUID(userUID.trim(), "general_secretary", "ou=groups,ou=DIAKINISI_EGGRAFON,ou=APPLICATIONS");	
+	boolean isMayorMember = galgallin.checkMembershipInGroupByUID(userUID.trim(), "mayor", "ou=groups,ou=DIAKINISI_EGGRAFON,ou=APPLICATIONS");	
+	boolean isProtocolMember = galgallin.checkMembershipInGroupByUID(userUID.trim(), "protocol", "ou=groups,ou=DIAKINISI_EGGRAFON,ou=APPLICATIONS");
+       
+       	String UserOU = MOASSUtils.setOuInAppropriateFormat(userUID.trim());
+	  	
+	if (!isGSecMember && !isMayorMember && !isProtocolMember && 
+	!UserOU.equals("ΔΗΜΑΡΧΟΣ".replaceAll("[ /s\\/,.!@#$%^&*()-+_=]", "")) && 
+	!UserOU.equals("ΓΕΝΙΚΟΣ ΓΡΑΜΜΑΤΕΑΣ".replaceAll("[ /s\\/,.!@#$%^&*()-+_=]", "")) && 
+	!UserOU.equals("Αντιδήμαρχος".replaceAll("[ /s\\/,.!@#$%^&*()-+_=]", "")) && 
+	!UserOU.equals("Εντεταλμένος Σύμβουλος".replaceAll("[ /s\\/,.!@#$%^&*()-+_=]", "")) &&
+	!UserOU.equals("ΓΕΝΙΚΟΣ ΔΙΕΥΘΥΝΤΗΣ".replaceAll("[ /s\\/,.!@#$%^&*()-+_=]", "")))
+		return false;
+	else return true;
+	}
+	
 	
 	
 	public static String json_signatures(InputStream PDF) throws IOException, GeneralSecurityException {
