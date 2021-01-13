@@ -104,11 +104,9 @@ public class postSign extends HttpServlet {
 		sgn.setExternalDigest(sign, null, "RSA");
 		
 		//byte[] encodedSign = sgn.getEncodedPKCS7(hash, cal, null, null, null, CryptoStandard.CMS);
-		///!!!	TODO FIX	o server 1 fenete na mhn exei sosta certificates gia katevasma...Pos mporo na to perioriso ston server 3 px
-				TSAClient tsaClient = new TSAClientBouncyCastle("http://timestamp.ermis.gov.gr/TSS/HttpTspServer", "", "");
-				byte[] encodedSign = sgn.getEncodedPKCS7(hash, cal, tsaClient, null, null, CryptoStandard.CMS);
-		//!!!/	
-
+		TSAClient tsaClient = new TSAClientBouncyCastle("https://timestamp.aped.gov.gr/qtss", "", "");
+		byte[] encodedSign = sgn.getEncodedPKCS7(hash, cal, tsaClient, null, null, CryptoStandard.CMS);
+	
        //System.out.write(Base64.encode(encodedSign)); //analyzer https://lapo.it/asn1js/
 
 		
